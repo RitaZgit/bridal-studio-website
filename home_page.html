@@ -1,0 +1,87 @@
+<!-- index.html - Home Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wedding Dresses - Home Page</title>
+  <link rel="stylesheet" href="style_work.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: #fef6f9;
+    }
+    .hero {
+      background: url('dress1.jpg') center/cover no-repeat;
+      padding: 100px 20px;
+      color: white;
+      text-align: center;
+      text-shadow: 2px 2px 5px #000;
+    }
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 50px 0;
+      flex-wrap: wrap;
+    }
+    .login-card {
+      background-color: #fff;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 220px;
+      transition: transform 0.3s;
+    }
+    .login-card:hover {
+      transform: translateY(-5px);
+    }
+    .login-card h2 {
+      margin-bottom: 10px;
+      color: #e281b7;
+    }
+    .login-card a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #ffb6c1;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .login-card a:hover {
+      background-color: #ff85a2;
+    }
+    .footer-bg {
+      background: url('footer.jpg') center/cover no-repeat;
+      padding: 150px 20px;
+      text-align: center;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-shadow: 2px 2px 6px #000;
+    }
+  </style>
+</head>
+<body class="main">
+  <div class="hero">
+    <h1>Welcome to Our Wedding Dress Boutique</h1>
+    <p>Find your dream dress with us</p>
+  </div>
+  <div class="buttons-container">
+    <div class="login-card">
+      <h2>Register</h2>
+      <a href="register.html">Sign Up</a>
+    </div>
+    <div class="login-card">
+      <h2>Login</h2>
+      <a href="login.html">Sign In</a>
+    </div>
+  </div>
+  <div class="footer-bg">
+    <p>Contact us | Privacy Policy | © 2025 Wedding Boutique</p>
+  </div>
+</body>
+</html>

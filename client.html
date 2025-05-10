@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <title>כניסת לקוחה</title>
+  <link rel="stylesheet" href="style_work.css">
+  <script>
+    function showPrice() {
+      const prices = {
+        'princess': '₪4,000',
+        'tight': '₪3,500',
+        'boho': '₪3,200'
+      };
+      const selected = document.querySelector('input[name="dress_select"]:checked');
+      if (selected) {
+        document.getElementById('price').innerText = "מחיר: " + prices[selected.value];
+      }
+    }
+  </script>
+</head>
+<body class="client">
+  <h1>טופס לקוחה</h1>
+  <form>
+    <label>שם מלא:</label><br>
+    <input type="text" name="full_name"><br>
+
+    <label>טלפון:</label><br>
+    <input type="tel" name="phone"><br>
+
+    <label>תאריך האירוע:</label><br>
+    <input type="date" name="event_date"><br>
+
+    <label>בחרי שמלה:</label><br>
+    <input type="radio" name="dress_select" value="princess" onclick="showPrice()"> שמלת נסיכה<br>
+    <img src="dress1.jpg" class="thumb">
+    <input type="radio" name="dress_select" value="tight" onclick="showPrice()"> שמלה צמודה<br>
+    <img src="dress2.jpg" class="thumb">
+    <input type="radio" name="dress_select" value="boho" onclick="showPrice()"> שמלה בוהו<br>
+    <img src="dress3.jpg" class="thumb">
+
+    <p id="price"></p>
+
+    <label>הערות:</label><br>
+    <textarea name="notes"></textarea><br><br>
+
+    <button type="submit">שלחי</button>
+  </form>
+</body>
+</html>
