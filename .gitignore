@@ -1,0 +1,25 @@
+# Ignore sensitive files
+.env
+aws-credentials.json
+.DS_Store
+.env.local
+
+# Ignore IDEs and system files
+.vscode/
+.idea/
+.AppleDouble
+Thumbs.db
+
+# Ignore Node.js modules (if applicable)
+node_modules/
+
+# Ignore Python bytecode (if applicable)
+__pycache__/
+*.pyc
+
+# Ignore build or dist files
+dist/
+build/
+
+# Ignore S3 sync folders (if applicable)
+.s3/
