@@ -9,7 +9,7 @@
 <body class="client" style="background: url('footer.jpg') center/cover no-repeat;">
   <div class="form">
     <h1>Register</h1>
-    <form>
+    <form id="registerForm">
       <label>First Name:</label><br>
       <input type="text" name="first_name" required><br>
 
@@ -21,6 +21,9 @@
 
       <label>ID Number:</label><br>
       <input type="text" name="id_number" required><br>
+
+      <label>Password:</label><br>
+      <input type="password" name="password" required><br>
 
       <label>Phone Number:</label><br>
       <input type="tel" name="phone" required><br>
@@ -39,8 +42,9 @@
       <button type="button">Facebook</button>
     </form>
   </div>
-  <script src="https://unpkg.com/aws-amplify@5.0.4/dist/aws-amplify.min.js"></script>
-<script src="/js/auth.js"></script>
 
+  <!-- AWS Amplify SDK -->
+  <script src="https://unpkg.com/aws-amplify@5.0.4/dist/aws-amplify.min.js"></script>
+  <script src="/js/auth.js"></script>
 </body>
 </html>

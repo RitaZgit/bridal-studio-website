@@ -9,13 +9,31 @@ aws_amplify.Amplify.configure({
   }
 });
 
-async function signIn(username, password) {
+const form = document.getElementById('registerForm');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+  const email = formData.get('email');
+  const password = formData.get('password'); 
+  const phone = formData.get('phone');
+  const firstName = formData.get('first_name');
+  const lastName = formData.get('last_name');
+
   try {
-    const user = await Auth.signIn(username, password);
-    console.log('Logged in:', user);
-    return user;
+    const { user } = await aws_amplify.Auth.signUp({
+      username: email,
+      password: password,
+      attributes: {
+        email,
+        phone_number: '+972' + phone, // AWS requires E.164 format
+        given_name: firstName,
+        family_name: lastName,
+      }
+    });
+    alert("Registration successful! Please check your email to confirm.");
   } catch (error) {
-    console.error('Login error:', error);
-    throw error;
+    console.error('Error signing up:', error);
+    alert(error.message || 'Error registering user');
   }
-}
+});
