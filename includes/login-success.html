@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Success</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 100px; }
+  </style>
+</head>
+<body>
+  <h1>✅ You have successfully logged in!</h1>
+  <p>Redirecting to the dashboard...</p>
+
+  <script>
+    // Extract Cognito tokens from the URL fragment (Implicit or Code Flow)
+    const hash = window.location.hash;
+    const params = new URLSearchParams(hash.substring(1));
+    const idToken = params.get("id_token");
+    const accessToken = params.get("access_token");
+
+    if (idToken || accessToken) {
+      console.log("ID Token:", idToken);
+      console.log("Access Token:", accessToken);
+      // Store token in sessionStorage or localStorage
+      sessionStorage.setItem("id_token", idToken);
+      sessionStorage.setItem("access_token", accessToken);
+
+      // Redirect to protected page (e.g., dashboard.html)
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+      }, 2000);
+    } else {
+      document.body.innerHTML += "<p style='color: red;'>No token received in URL.</p>";
+    }
+  </script>
+</body>
+</html>
