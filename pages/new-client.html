@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8"/>
+<title>לקוחה חדשה | MY DESIGN</title>
+<link href="../css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<script defer="" src="../js/script.js"></script>
+<style>
+    body {
+      background-color: #fff;
+      font-family: 'Assistant', sans-serif;
+      margin: 0;
+      color: #111;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .form-wrapper {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    select, input, textarea {
+      width: 100%;
+      padding: 0.7rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .toggle-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .toggle-buttons button {
+      flex: 1;
+      padding: 0.7rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      background: #fff;
+    }
+
+    .toggle-buttons button.active {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+    }
+
+    .new-client-fields {
+      display: none;
+      margin-top: 1rem;
+    }
+
+    .submit-btn {
+      background: #111;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .form-success {
+      background: #e0ffe0;
+      color: #0a0;
+      text-align: center;
+      padding: 1rem;
+      border: 1px solid #0a0;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<header class="main-header">
+<div class="container header-flex"><nav class="navbar">
+<ul class="nav-links">
+<li><a href="admin-dashboard.html">דשבורד</a></li>
+<li><a href="clients-log.html">הזמנות</a></li>
+<li><a href="clients-log.html">לקוחות</a></li>
+<li><a href="calendar.html">יומן</a></li>
+<li><a href="inventory.html">מלאי</a></li>
+<li><a href="payments.html">תשלומים</a></li>
+<li><a href="../index.html">התנתקות</a></li>
+</ul>
+</nav><img alt="לוגו MY DESIGN" class="logo-img" src="../images/logo.png"/></div>
+</header>
+<main class="container">
+<a href="clients-log.html" style="display:inline-block; margin-bottom: 1rem; text-decoration:none; color:#111; font-weight:600; margin-top: 1.5rem;">← חזרה לרשימת לקוחות</a>
+<h1>יצירת לקוחה חדשה</h1>
+<div class="form-wrapper">
+<form onsubmit="event.preventDefault(); document.getElementById('successMessage').style.display = 'block';">
+
+<div class="form-row" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+  <div class="form-group" style="flex: 1;">
+    <label for="firstName">שם פרטי</label>
+    <input type="text" id="firstName" name="firstName" required style="font-family: Assistant;">
+  </div>
+  <div class="form-group" style="flex: 1;">
+    <label for="lastName">שם משפחה</label>
+    <input type="text" id="lastName" name="lastName" required style="font-family: Assistant;">
+  </div>
+</div>
+
+<div class="form-group">
+  <label for="phone">טלפון</label>
+  <input type="tel" id="phone" name="phone" required style="font-family: Assistant;">
+</div>
+
+<div class="form-group">
+  <label for="email">אימייל</label>
+  <input type="email" id="email" name="email" required style="font-family: Assistant;">
+</div>
+
+<div class="form-group">
+  <label for="notes">הערות</label>
+  <textarea id="notes" name="notes" rows="4" style="font-family: Assistant;"></textarea>
+</div>
+
+<button type="submit" class="submit-btn">שמור לקוחה</button>
+</form>
+</div>
+</main>
+<script>
+  const modeButtons = document.querySelectorAll('.client-mode-btn');
+  const existingClient = document.querySelector('.existing-client');
+  const newClientFields = document.querySelector('.new-client-fields');
+
+  modeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      modeButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      const mode = button.dataset.mode;
+      if (mode === 'new') {
+        newClientFields.style.display = "block";
+        existingClient.style.display = "none";
+      } else {
+        newClientFields.style.display = "none";
+        existingClient.style.display = "block";
+      }
+    });
+  });
+
+  document.getElementById('newOrderForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('successMessage').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>

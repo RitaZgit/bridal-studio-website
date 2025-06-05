@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8"/>
+<title>ניהול הזמנות | MY DESIGN</title>
+<link href="../css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<script defer="" src="../js/script.js"></script>
+<style>
+    .main-header .container {
+      flex-direction: row-reverse;
+    }
+
+    .orders-page {
+      padding: 2rem 0;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .page-header h1 {
+      font-size: 1.8rem;
+      margin: 0;
+    }
+
+    .new-order-btn {
+      background: #111;
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .filters {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .filters select,
+    .filters input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: #f2f2f2;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    tr:hover {
+      background-color: #fafafa;
+    }
+
+    a.table-link {
+      color: #111;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+  </style>
+<style>
+.form-control {
+  width: 100%;
+  padding: 0.7rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+}
+
+.order-details-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+input[type="file"]::file-selector-button {
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+</style><style>
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.status-grid .btn {
+  text-align: center;
+  padding: 0.8rem 0;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+</style><style>
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.status-grid .btn {
+  text-align: center;
+  padding: 0.8rem 0;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+</style><style>
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+  align-items: center;
+  justify-items: center;
+  max-width: 720px;
+  margin: 0 auto 2rem;
+}
+.status-grid .btn {
+  width: 100%;
+  text-align: center;
+  padding: 0.8rem 0;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.arrow {
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #111;
+  line-height: 1;
+}
+</style><style>
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(11, auto);
+  gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.status-grid .btn {
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.arrow {
+  font-size: 1.2rem;
+  color: #111;
+}
+</style><style>
+.save-highlight {
+  background: #111;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.save-highlight:hover {
+  background: #333;
+  transform: scale(1.03);
+}
+</style><style>
+.save-highlight {
+  background: #111;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+.save-highlight:hover {
+  background: #333;
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.big-save {
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
+  font-weight: bold;
+}
+</style></head>
+<body>
+<header class="main-header">
+<div class="container header-flex">
+<img alt="לוגו MY DESIGN" class="logo-img" src="../images/logo.png"/>
+<nav class="navbar">
+<ul class="nav-links">
+<li><a href="admin-dashboard.html">דשבורד</a></li>
+<li><a class="active" href="orders.html">הזמנות</a></li>
+<li><a href="clients-log.html">לקוחות</a></li>
+<li><a href="calendar.html">יומן</a></li>
+<li><a href="inventory.html">מלאי</a></li>
+<li><a href="payments.html">תשלומים</a></li>
+<li><a href="../index.html">התנתקות</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main class="container"><a href="orders.html" style="display:inline-block; margin-bottom: 1rem; text-decoration:none; color:#111; font-weight:600; margin-top: 1.5rem;">← חזרה לרשימת ההזמנות</a>
+<section class="order-details" style="max-width: 700px; margin: auto; background: #fff; border: 1px solid #ddd; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.04); margin-bottom: 3rem;">
+<h1 class="section-title" style="text-align:center; font-size: 1.8rem; margin-bottom: 2rem;">הזמנה #3001 - עיצוב שמלת כלה</h1>
+<h2 class="section-title">סטטוס תהליך</h2>
+<div class="form-group" style="margin-bottom:1.5rem;">
+<div class="status-grid">
+<button class="btn">שלב 1: פגישה</button>
+<div class="arrow">←</div>
+<button class="btn">שלב 2: סקיצה</button>
+<div class="arrow">←</div>
+<button class="btn">שלב 3: מדידות</button>
+<div class="arrow">←</div>
+<button class="btn">שלב 4: תפירה</button>
+<div class="arrow">←</div>
+<button class="btn">שלב 5: התאמות</button>
+<div class="arrow">←</div>
+<button class="btn">שלב 6: מסירה</button>
+</div>
+
+</div>
+<h2 class="section-title">פרטי הלקוחה</h2>
+<div class="form-group">
+<label>קוד לקוחה:</label>
+<input class="form-control" readonly="" style="background-color:#f5f5f5;" type="text" value="1124"/>
+</div>
+<div class="form-group"><label>שם:</label><input class="form-control" readonly="readonly" style="background-color:#f5f5f5;" type="text" value="ליה נחום"/></div>
+<div class="form-group">
+<label>אימייל:</label>
+<input class="form-control" readonly="readonly" style="background-color:#f5f5f5;" type="email" value="leah@example.com"/>
+</div>
+<div class="form-group"><label>טלפון:</label><input class="form-control" readonly="readonly" style="background-color:#f5f5f5;" type="text" value="052-6144321"/></div>
+<h2 class="section-title">פרטי ההזמנה</h2>
+<div class="form-group"><label>מספר הזמנה:</label><input class="form-control" readonly="readonly" style="background-color:#f5f5f5;" type="text" value="3001"/></div>
+<div class="form-group"><label>תאריך התחלה:</label><input class="form-control" readonly="readonly" style="background-color:#f5f5f5;" type="date" value="2024-11-21"/></div>
+<div class="form-group">
+<label>תאריך יעד:</label>
+<input class="form-control" type="date" value="2024-12-15"/>
+</div>
+<div class="form-group"><label>סוג שמלה:</label>
+<select class="form-control" disabled="disabled" style="background-color:#f5f5f5;">
+<option selected="">שמלת כלה</option>
+<option>שמלת ערב</option>
+</select>
+</div>
+<div class="form-group">
+<label>מידות (חזה / מותן / אגן):</label>
+<div style="display:flex; gap:1rem;">
+<input class="form-control" placeholder="חזה" type="text" value="90"/>
+<input class="form-control" placeholder="מותן" type="text" value="66"/>
+<input class="form-control" placeholder="אגן" type="text" value="86"/>
+</div>
+</div>
+<div class="form-group"><label>מחיר העבודה:</label><input class="form-control" type="text" value="12,245"/></div>
+<div class="form-group" style="display:flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 2rem;">
+<button class="btn save-highlight" style="flex:1;">צפייה בפרטי פגישות</button>
+<button class="btn save-highlight" style="flex:1;">צפייה בקיר השראה</button>
+</div>
+<h2 class="section-title" style="text-align:center;">קבצים שהועלו</h2>
+<ul style="padding: 0; text-align: center; list-style-position: inside;">
+<li><a href="#">טבלת מדידות.xlsx</a></li>
+<li><a href="#">דרישות הלקוחה.PDF</a></li>
+<li><a href="#">השראה.PNG</a></li>
+</ul>
+<div class="form-group" style="margin: 1rem auto; text-align: center; max-width: 500px;">
+<label for="uploadFile" style="display: block; margin-bottom: 0.5rem;">הוסף קובץ:</label><br/>
+<input class="form-control" id="uploadFile" name="uploadFile" style="display: block; margin: 0 auto; width: fit-content;" type="file"/>
+</div>
+<div style="text-align:center; margin-top: 2rem;">
+<button class="btn save-highlight big-save">שמור</button>
+</div>
+</section>
+</main>
+<footer class="main-footer">
+<div class="container">
+<p>© 2025 MY DESIGN - כל הזכויות שמורות</p>
+</div>
+</footer>
+
+
+
+
+<style>
+  .step-options {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .custom-checkbox {
+    background: #f7f7f7;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .custom-checkbox:hover {
+    background: #eee;
+  }
+
+  .custom-checkbox input {
+    margin-left: 0.5rem;
+  }
+
+  .active-step {
+    outline: 3px solid #111;
+    box-shadow: 0 0 0 3px #fff inset;
+  }
+</style>
+<style>
+  .step-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .step-options label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #fafafa;
+    padding: 0.6rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .step-options label:hover {
+    background-color: #f0f0f0;
+  }
+
+  .step-options input[type="checkbox"] {
+    accent-color: #111;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .active-step {
+    outline: 3px solid #111;
+    box-shadow: 0 0 0 3px #fff inset;
+  }
+</style>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const stepOptionsMap = {
+    1: ['הזנת פרטים', 'אימות תשלום'],
+    2: ['סקיצה ראשונית', 'סקיצה סופית'],
+    3: ['תיאום מדידה', 'עדכון מידות'],
+    4: ['התחלת תפירה', 'בדיקת בדים'],
+    5: ['התאמה ראשונה', 'תיקונים'],
+    6: ['מוכנה', 'אישור תשלום' ,'נמסרה']
+  };
+
+  const steps = document.querySelectorAll('.status-grid .btn');
+  const optionsContainer = document.createElement('div');
+  optionsContainer.id = 'step-options-container';
+  optionsContainer.className = 'step-options';
+  const statusGroup = document.querySelector('.status-grid').parentElement;
+  statusGroup.appendChild(optionsContainer);
+
+  let currentStep = 1;
+
+  function renderOptions(stepNum) {
+    const options = stepOptionsMap[stepNum] || [];
+    optionsContainer.innerHTML = '';
+    options.forEach(opt => {
+      const label = document.createElement('label');
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      label.appendChild(checkbox);
+      label.append(' ' + opt);
+      optionsContainer.appendChild(label);
+    });
+
+    const nextBtn = document.createElement('button');
+    nextBtn.textContent = (stepNum === 6) ? 'הושלמה' : 'הבא';
+    nextBtn.className = 'btn save-highlight';
+    nextBtn.style.marginTop = '1.5rem';
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      steps.forEach(s => s.classList.remove('active-step'));
+      if (stepNum === 6) {
+        steps.forEach(btn => {
+          btn.style.backgroundColor = '#ccc';
+          btn.disabled = true;
+        });
+        optionsContainer.innerHTML = '<p style="text-align:center; font-weight:600;">ההזמנה הושלמה 🎉</p>';
+        // TODO: שמירת סטטוס למסד הנתונים בעתיד
+      } else {
+        steps[stepNum - 1].style.backgroundColor = '#ccc';
+        steps[stepNum - 1].disabled = true;
+        currentStep++;
+        if (currentStep <= steps.length) {
+          steps[currentStep - 1].classList.add('active-step');
+          renderOptions(currentStep);
+        }
+      }
+    });
+
+    optionsContainer.appendChild(nextBtn);
+  }
+
+  steps.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const stepText = btn.textContent || '';
+      const stepNum = parseInt(stepText.match(/שלב (\d+)/)?.[1] || '1');
+      steps.forEach(b => b.classList.remove('active-step'));
+      btn.classList.add('active-step');
+      currentStep = stepNum;
+      renderOptions(stepNum);
+    });
+  });
+
+  steps[0].classList.add('active-step');
+  renderOptions(currentStep);
+});
+</script>
+
+</body>
+</html>

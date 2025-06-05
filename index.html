@@ -1,90 +1,164 @@
-<!-- index.html - Home Page -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
 <head>
   <meta charset="UTF-8">
-  <title>Wedding Dresses - Home Page</title>
-  <link rel="stylesheet" href="css/style_work.css">
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background-color: #fef6f9;
-    }
-    .hero {
-      background: url('/images/dress1.jpg') center/cover no-repeat;
-      padding: 100px 20px;
-      color: white;
-      text-align: center;
-      text-shadow: 2px 2px 5px #000;
-    }
-    .buttons-container {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin: 50px 0;
-      flex-wrap: wrap;
-    }
-    .login-card {
-      background-color: #fff;
-      padding: 20px 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      width: 220px;
-      transition: transform 0.3s;
-    }
-    .login-card:hover {
-      transform: translateY(-5px);
-    }
-    .login-card h2 {
-      margin-bottom: 10px;
-      color: #e281b7;
-    }
-    .login-card a {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #ffb6c1;
-      color: white;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
-    .login-card a:hover {
-      background-color: #ff85a2;
-    }
-    .footer-bg {
-      background: url('/images/footer.jpg') center/cover no-repeat;
-      padding: 150px 20px;
-      text-align: center;
-      color: white;
-      font-size: 1.2rem;
-      font-weight: bold;
-      text-shadow: 2px 2px 6px #000;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MY DESIGN - עיצוב שמלות כלה וערב</title>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+	<script src="js/login.js" defer></script>
+
+
 </head>
-<body class="main">
-  <div class="hero">
-    <h1>Welcome to Our Wedding Dress Boutique</h1>
-    <p>Find your dream dress with us</p>
+
+<body dir="rtl">
+ <header class="main-header">
+  <div class="container header-flex">
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="#about">אודות</a></li>
+        <li><a href="#process">תהליך העבודה</a></li>
+        <li><a href="#gallery">קולקציה</a></li>
+        <li><a href="#footer">צור קשר</a></li>
+      </ul>
+      <a href="#" class="login-btn" onclick="openModal()">התחברות</a>
+      <button class="btn" onclick="document.getElementById('modal').style.display='flex'">קבעי פגישה</button>
+    </nav>
+    <a href="index.html">
+  <img src="images/logo.png" alt="MY DESIGN Logo" class="logo-img">
+</a>
   </div>
-  <div class="buttons-container">
-    <div class="login-card">
-      <h2>Register</h2>
-      <a href="/includes/register.html">Sign Up</a>
+</header>
+<!-- מודל התחברות חדש -->
+<!-- מודל התחברות חדש -->
+<div id="loginModal" class="modal" onclick="closeModal()">
+  <div class="modal-content login-modal" onclick="event.stopPropagation()">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+
+    <!-- שלב 1 -->
+    <div id="login-step1" class="login-step">
+      <h2>התחברות למערכת</h2>
+      <p class="sub-text">אני:</p>
+      <div class="role-buttons">
+        <button class="role-btn" onclick="selectRole('client')">לקוחה</button>
+        <button class="role-btn" onclick="selectRole('designer')">מעצבת</button>
+      </div>
     </div>
-    <div class="login-card">
-      <h2>Login</h2>
-      <a href="/includes/login.html">Sign In</a>
+
+    <!-- שלב 2 -->
+    <div id="login-step2" class="login-step" style="display: none;">
+      <h2 id="login-title">התחברות</h2>
+      <input type="email" id="email" placeholder="אימייל">
+      <input type="password" id="password" placeholder="סיסמה">
+      <button class="btn full-width" onclick="submitLogin()">התחברי</button>
+
+      <div id="social-login" class="social-section" style="display: none;">
+        <p class="sub-text">או התחברי עם:</p>
+        <div class="social-icons">
+          <button class="social-btn" onclick="loginWith('instagram')">
+            <img src="images/instagram-icon.png" alt="התחברי עם אינסטגרם">
+          </button>
+          <button class="social-btn" onclick="loginWith('google')">
+            <img src="images/google-icon.png" alt="התחברי עם גוגל">
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="footer-bg">
-    <p>Contact us | Privacy Policy | © 2025 Wedding Boutique</p>
+</div>
+
+
+  <section class="hero-section">
+    <div class="hero-image">
+      <div class="hero-text">
+        <h1>עיצוב שמלות בהתאמה אישית</h1>
+        <p>סטודיו MY DESIGN לשמלות כלה וערב</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about-section container">
+    <div class="about-content">
+      <div class="text">
+        <h2>על הסטודיו</h2>
+        <p>סטודיו MY DESIGN הוא בוטיק לעיצוב שמלות כלה וערב בהתאמה אישית. כל שמלה נתפרת באהבה ובהקשבה מלאה לחלום שלך.</p>
+      </div>
+      <div class="image">
+        <img src="images/studio.jpg" alt="תמונה מהסטודיו">
+      </div>
+    </div>
+  </section>
+
+  <section id="process" class="process-section">
+    <h2>תהליך העבודה</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>ייעוץ ראשוני</h3>
+        <p>היכרות והבנת הסגנון שלך</p>
+      </div>
+      <div class="step">
+        <h3>בחירת בד ועיצוב</h3>
+        <p>בדים, גזרות, השראות</p>
+      </div>
+      <div class="step">
+        <h3>תפירה ומדידות</h3>
+        <p>תהליך תפירה מדויק ומדידות מקצועיות</p>
+      </div>
+      <div class="step">
+        <h3>התאמה ואיסוף</h3>
+        <p>הגשה מושלמת ליום הגדול</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="gallery-section">
+    <h2>הקולקציה שלנו</h2>
+    <div class="gallery-grid">
+      <img src="images/dress1.jpg" alt="שמלה 1">
+      <img src="images/dress2.jpg" alt="שמלה 2">
+      <img src="images/dress3.jpg" alt="שמלה 3">
+      <img src="images/dress4.jpg" alt="שמלה 4">
+      <img src="images/dress5.jpg" alt="שמלה 5">
+      <img src="images/dress6.jpg" alt="שמלה 6">
+    </div>
+  </section>
+
+  <footer id="footer">
+    <div class="container">
+      <p>כתובת: הרצל 12, תל אביב</p>
+      <p>טלפון: 03-555-1234 | מייל: info@mariya-design.co.il</p>
+      <div class="social-icons">
+        <a href="#"><img src="images/instagram-icon.png" alt="אינסטגרם"></a>
+        <a href="#"><img src="images/facebook-icon.png" alt="פייסבוק"></a>
+      </div>
+      <p>© 2025 MY DESIGN. כל הזכויות שמורות.</p>
+    </div>
+  </footer>
+
+  <!-- Modal -->
+ <!-- Modal -->
+<div id="modal" class="modal" onclick="this.style.display='none'">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <span class="close-modal" onclick="document.getElementById('modal').style.display='none'">&times;</span>
+    
+    <div class="form-wrapper">
+      <h2>טופס לתיאום פגישה</h2>
+      <p class="form-subtext">מלאי את פרטייך ונחזור אלייך בהקדם 💬</p>
+
+      <label>שם</label>
+      <input type="text">
+      <label>דוא"ל</label>
+      <input type="email">
+      <label>טלפון</label>
+      <input type="text">
+      <label>תאריך האירוע</label>
+      <input type="date">
+      <label>הודעה</label>
+      <textarea rows="4"></textarea>
+      <button class="btn full-width">שלח</button>
+    </div>
   </div>
-  <script src="https://unpkg.com/aws-amplify@5.0.4/dist/aws-amplify.min.js"></script>
-<script src="/js/auth.js"></script>
+</div>
 
 </body>
 </html>

@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8"/>
+<title>דשבורד מעצבת | MY DESIGN</title>
+<link href="../css/style.css" rel="stylesheet"/>
+<link href="../css/dashboard.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<script defer="" src="../js/script.js"></script>
+<style>
+    .main-header .container {
+      flex-direction: row-reverse;
+    }
+
+    .latest-orders {
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .slider {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: 1rem 0;
+      justify-content: center;
+    }
+
+    .slide {
+      min-width: 160px;
+      max-width: 180px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+
+    .slide img {
+      width: 100%;
+      display: block;
+    }
+
+    .slide p {
+      font-size: 0.9rem;
+      padding: 0.5rem;
+      margin: 0;
+      text-align: center;
+    }
+
+    .link-button {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #111;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .stat {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    .stat .income {
+      color: #2e7d32;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .stat .expense {
+      color: #c62828;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .circle-value {
+      width: 60px;
+      height: 60px;
+      background-color: #fff;
+      border: 3px solid #111;
+      border-radius: 50%;
+      margin: 0.5rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .quick-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .quick-button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #111;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .quick-button img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 0.4rem;
+    }
+
+
+  .dashboard-stats {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .stat {
+    background: #fafafa;
+    padding: 1.5rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease;
+  }
+
+  .stat:hover {
+    transform: translateY(-4px);
+  }
+
+  .stat h3, .stat h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #222;
+  }
+
+  .stat p, .circle-value {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #111;
+  }
+
+  .circle-value {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #444;
+    border-radius: 50%;
+    margin: 0.5rem auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  </style>
+<style>
+.step-btn {
+  padding: 0.5rem 1.2rem !important;
+  font-size: 0.85rem !important;
+  min-width: 110px !important;
+}
+</style><style>
+.step-btn {
+  padding: 0.5rem 1.2rem !important;
+  font-size: 0.85rem !important;
+  min-width: 110px !important;
+}
+</style></head>
+<body>
+<header class="main-header">
+<div class="container header-flex">
+<img alt="לוגו MY DESIGN" class="logo-img" src="../images/logo.png"/>
+<nav class="navbar">
+<ul class="nav-links">
+<li><a class="active" href="client-dashboard.html">הפורטל שלי</a></li>
+<li><a href="inspiration.html">קיר השראה</a></li>
+<li><a href="schedule-meeting.html">קביעת פגישה</a></li>
+<li><a href="payment-form.html">תשלום</a></li>
+<li><a href="../index.html">התנתקות</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main class="container">
+<style>
+  .step-btn {
+    padding: 0.7rem 1.6rem;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-weight: 500;
+    transition: 0.2s ease;
+    white-space: nowrap;
+    min-width: 130px;
+    font-family: 'Assistant', sans-serif;
+  }
+
+  .step-btn.gray {
+    background-color: #ddd;
+    color: #222;
+  }
+
+  .step-btn.current-step {
+    background-color: #111;
+    color: #fff;
+    border: 2px solid white;
+    box-shadow: 0 0 0 3px #111;
+    font-weight: bold;
+    position: relative;
+    z-index: 1;
+  }
+</style>
+<section style="max-width: 1100px; margin: 2rem auto; display: flex; flex-wrap: nowrap; gap: 1.5rem; align-items: stretch; font-family: 'Assistant', sans-serif;"><section style="flex: 1 1 50%;"><div onmouseout="this.style.transform='none'" onmouseover="this.style.transform='translateY(-4px)'" style="background: #fff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 2rem; flex: 1 1 370px; font-family: Assistant, sans-serif; display: flex; flex-direction: column; justify-content: center; text-align: center; font-family: 'Assistant', sans-serif; transition: transform 0.2s ease; ">
+<h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1.2rem;">הפגישה הבאה שלי</h3>
+<p style="font-size: 1.05rem; margin: 0.5rem 0;"><strong>תאריך:</strong> 14 ביולי 2025</p>
+<p style="font-size: 1.05rem; margin: 0.5rem 0;"><strong>שעה:</strong> 11:00</p>
+<p style="font-size: 1.05rem; margin: 0.5rem 0;"><strong>מיקום:</strong> סטודיו MY DESIGN, דיזנגוף 123 תל אביב</p>
+<div style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center;">
+<button class="btn save-highlight" style="border-radius: 12px; padding: 0.6rem 1.5rem; font-family: 'Assistant', sans-serif;">עדכני פגישה</button>
+<button class="btn" style="background-color: #eee; color: #111; border-radius: 12px; padding: 0.6rem 1.5rem; font-family: 'Assistant', sans-serif;">בטלי פגישה</button>
+</div>
+</div>
+</section><section style="flex: 1 1 50%;"><div style="background: #fafafa; border-radius: 16px; padding: 2rem; border: 1px solid #ccc; box-shadow: 0 2px 6px rgba(0,0,0,0.05); text-align: center;">
+<h2 class="section-title" style="font-weight:600;">סטטוס השמלה שלי</h2>
+<div style="display: flex; justify-content: center; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: nowrap; overflow-x: auto; padding: 0.5rem;">
+<button class="btn step-btn gray">שלב 1: פגישה</button>
+<div class="arrow">←</div>
+<button class="btn step-btn current-step">שלב 2: סקיצה</button>
+<div class="arrow">←</div>
+<button class="btn step-btn">שלב 3: מדידות</button>
+<div class="arrow">←</div>
+<button class="btn step-btn">שלב 4: תפירה</button>
+<div class="arrow">←</div>
+<button class="btn step-btn">שלב 5: התאמות</button>
+<div class="arrow">←</div>
+<button class="btn step-btn">שלב 6: מסירה</button>
+</div>
+<div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+<label style="background:#eee; padding:0.6rem 1.2rem; border-radius:12px; font-weight:500;">
+<input checked="" disabled="" type="checkbox"/> סקיצה ראשונית
+    </label>
+<label style="background:#eee; padding:0.6rem 1.2rem; border-radius:12px; font-weight:500;">
+<input checked="" disabled="" type="checkbox"/> סקיצה סופית
+    </label>
+</div>
+<div style="max-width: 700px; margin: auto;">
+<div style="display: flex; flex-direction: column; align-items: flex-start;">
+<textarea placeholder="כתבי כאן הערה למעצבת..." style="width: 100%; height: 100px; padding: 1rem; border-radius: 8px; border: 1px solid #ccc; font-family: 'Assistant', sans-serif; font-size: 1rem; box-sizing: border-box;"></textarea>
+<button class="btn save-highlight" style="margin-top: 1rem; align-self: center; border-radius: 12px; padding: 0.5rem 1.5rem; font-family: 'Assistant', sans-serif;">הוסיפי</button>
+</div>
+</div>
+<div style="margin-top: 2rem;">
+<h3 style="font-weight:600; font-size: 1.2rem; margin-bottom: 1rem;">תמונות של השמלה שלי</h3>
+<div style="display:flex; gap:2rem; justify-content:center; flex-wrap:wrap;">
+<div>
+<img alt="ליה_נחום_סקיצה_ראשונית_#3001" src="../images/sketch-initial.jpg" style="height:280px; border-radius:8px; box-shadow:0 0 6px rgba(0,0,0,0.1); object-fit: contain;"/>
+<p style="margin-top:0.5rem;">סקיצה ראשונית</p>
+</div>
+<div>
+<img alt="ליה_נחום_סקיצה_ראשונית_#3001" src="../images/sketch-final.jpg" style="height:280px; border-radius:8px; box-shadow:0 0 6px rgba(0,0,0,0.1); object-fit: contain;"/>
+<p style="margin-top:0.5rem;">סקיצה סופית</p>
+</div>
+</div>
+</div>
+</div></section></section>
+</main>
+<footer class="main-footer">
+<div class="container">
+<p>© 2025 MY DESIGN - כל הזכויות שמורות</p>
+</div>
+</footer>
+</body>
+</html>
