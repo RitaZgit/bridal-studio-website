@@ -1,42 +1,15 @@
 <!DOCTYPE html>
-
 <html dir="rtl" lang="he">
 <head>
-<meta charset="utf-8"/>
-<title>ניהול מלאי | MY DESIGN</title>
-<link href="../css/style.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600&amp;display=swap" rel="stylesheet"/>
-<script defer="" src="../js/inventory.js">
-      const inventorySearchInput = document.getElementById('inventory-search');
-      if (inventorySearchInput) {
-        inventorySearchInput.addEventListener('input', () => {
-          const searchValue = inventorySearchInput.value.trim().toLowerCase();
-          const rows = document.querySelectorAll('#existing-stock tbody tr');
-          rows.forEach(row => {
-            const text = row.textContent.toLowerCase();
-            row.style.display = text.includes(searchValue) ? '' : 'none';
-          });
-        });
-      }
+  <meta charset="utf-8" />
+  <title>ניהול מלאי | MY DESIGN</title>
+  <link href="../css/style.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Assistant', sans-serif;
+    }
 
-      const supplierSearchInput = document.getElementById('suppliers-search');
-      if (supplierSearchInput) {
-        supplierSearchInput.addEventListener('input', () => {
-          const searchValue = supplierSearchInput.value.trim().toLowerCase();
-          const rows = document.querySelectorAll('#suppliers tbody tr');
-          rows.forEach(row => {
-            const supplierNumber = row.children[0].textContent.toLowerCase();
-            const supplierName = row.children[1].textContent.toLowerCase();
-            const itemCodes = row.children[2].textContent.toLowerCase();
-            const match = supplierNumber.includes(searchValue) ||
-                          supplierName.includes(searchValue) ||
-                          itemCodes.includes(searchValue);
-            row.style.display = match ? '' : 'none';
-          });
-        });
-      }
-    </script>
-<style>
     .btn-primary, .btn-secondary, .tab-btn {
       font-family: 'Assistant', sans-serif;
     }
@@ -53,7 +26,7 @@
       width: 100%;
       max-width: 500px;
     }
-    
+
     .main-header .container {
       flex-direction: row-reverse;
     }
@@ -109,71 +82,168 @@
       height: 60px;
       resize: vertical;
     }
+
+    .action-btn {
+      margin-left: 0.25rem;
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      text-align: right;
+    }
+
+    .modal-content input {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .modal-content button {
+      background-color: #111;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .modal-content .close {
+      float: left;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-<header class="main-header">
-<div class="container header-flex">
-<img alt="לוגו MY DESIGN" class="logo-img" src="../images/logo.png"/>
-<nav class="navbar">
-<ul class="nav-links">
-<li><a href="admin-dashboard.html">דשבורד</a></li>
-<li><a href="orders.html">הזמנות</a></li>
-<li><a href="clients-log.html">לקוחות</a></li>
-<li><a href="calendar.html">יומן</a></li>
-<li><a class="active" href="inventory.html">מלאי</a></li>
-<li><a href="payments.html">תשלומים</a></li>
-<li><a href="../index.html">התנתקות</a></li>
-</ul>
-</nav>
-</div>
-</header>
-<main class="inventory-page container">
-<div class="page-header">
-<h1>ניהול מלאי</h1>
-<div class="inventory-tabs">
-<button class="tab-btn active" data-tab="existing-stock">מלאי</button>
-<button class="tab-btn" data-tab="suppliers">רשימת ספקים</button>
-</div>
-</div>
-<section class="inventory-tab active" id="existing-stock">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-<div class="inventory-search" style="text-align: right;">
-<input id="inventory-search" placeholder="הכנס מק״ט, שם פריט או שם ספק" type="text"/>
-</div>
-<button class="btn-primary" type="button">+ הוסף פריט</button>
-</div>
-<table class="table-style table-style">
-<thead><tr><th>מק"ט</th><th>שם פריט</th><th>עלות</th><th>כמות</th><th>ספק</th><th>קטגוריה</th><th>פעולות</th></tr></thead>
-<tbody><tr><td>11281</td><td>רוכסן זהב</td><td>62₪</td><td>23 יח'</td><td>סופר תפירה</td><td>אביזרים</td><td>🗑️ ✏️</td></tr><tr><td>11282</td><td>מחט תפירה</td><td>75₪</td><td>92 יח'</td><td>סופר תפירה</td><td>אביזרים</td><td>🗑️ ✏️</td></tr><tr><td>11283</td><td>אבני סברובסקי</td><td>96₪</td><td>86 יח'</td><td>סופר תפירה</td><td>אביזרים</td><td>🗑️ ✏️</td></tr><tr><td>11284</td><td>אורגנזה</td><td>43₪</td><td>5 מטר</td><td>MD TEXTILES</td><td>בדים</td><td>🗑️ ✏️</td></tr><tr><td>11285</td><td>קטיפה דקה</td><td>90₪</td><td>16 מטר</td><td>סופר תפירה</td><td>בדים</td><td>🗑️ ✏️</td></tr><tr><td>11286</td><td>כפתור פנינה</td><td>155₪</td><td>52 יח'</td><td>שיר בדים</td><td>אביזרים</td><td>🗑️ ✏️</td></tr><tr><td>11287</td><td>אבני סברובסקי</td><td>119₪</td><td>93 יח'</td><td>סופר תפירה</td><td>אביזרים</td><td>🗑️ ✏️</td></tr><tr><td>11288</td><td>רוכסן זהב</td><td>124₪</td><td>35 יח'</td><td>טקסטיל עלית</td><td>אביזרים</td><td>🗑️ ✏️</td></tr><tr><td>11289</td><td>קטיפה דקה</td><td>46₪</td><td>6 מטר</td><td>DORI IMPORT</td><td>בדים</td><td>🗑️ ✏️</td></tr><tr><td>11290</td><td>קטיפה דקה</td><td>37₪</td><td>25 מטר</td><td>סופר תפירה</td><td>בדים</td><td>🗑️ ✏️</td></tr><tr><td>11291</td><td>קטיפה דקה</td><td>164₪</td><td>5 מטר</td><td>שיר בדים</td><td>בדים</td><td>🗑️ ✏️</td></tr><tr><td>11292</td><td>שיפון לבן</td><td>51₪</td><td>19 מטר</td><td>סופר תפירה</td><td>בדים</td><td>🗑️ ✏️</td></tr><tr><td>11293</td><td>סאטן כבד</td><td>91₪</td><td>24 מטר</td><td>סופר תפירה</td><td>בדים</td><td>🗑️ ✏️</td></tr><tr><td>11294</td><td>טול נפוח</td><td>136₪</td><td>20 מטר</td><td>DORI IMPORT</td><td>בדים</td><td>🗑️ ✏️</td></tr><tr><td>11295</td><td>רוכסן זהב</td><td>21₪</td><td>86 יח'</td><td>סופר תפירה</td><td>אביזרים</td><td>🗑️ ✏️</td></tr><tr><td>11296</td><td>שיפון לבן</td><td>157₪</td><td>12 מטר</td><td>טקסטיל עלית</td><td>בדים</td><td>🗑️ ✏️</td></tr><tr><td>11297</td><td>סרט קטיפה</td><td>155₪</td><td>18 יח'</td><td>DORI IMPORT</td><td>אביזרים</td><td>🗑️ ✏️</td></tr><tr><td>11298</td><td>סרט קטיפה</td><td>106₪</td><td>20 יח'</td><td>סופר תפירה</td><td>אביזרים</td><td>🗑️ ✏️</td></tr><tr><td>11299</td><td>אורגנזה</td><td>42₪</td><td>10 מטר</td><td>טקסטיל עלית</td><td>בדים</td><td>🗑️ ✏️</td></tr><tr><td>11300</td><td>תחרה פרחונית</td><td>114₪</td><td>27 מטר</td><td>MD TEXTILES</td><td>בדים</td><td>🗑️ ✏️</td></tr></tbody>
-</table>
-</section>
-<section class="inventory-tab" id="suppliers">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-<div class="inventory-search" style="text-align: right;">
-<input id="suppliers-search" placeholder="הכנס מק״ט, מספר או שם ספק" type="text"/>
-</div>
-<button class="btn-primary" type="button">+ הוסף ספק</button>
-</div>
-<table class="table-style">
-<thead>
-<tr>
-<th>מס' ספק</th>
-<th>שם ספק</th>
-<th>מק"טים</th>
-<th>פעולות</th>
-</tr>
-</thead>
-<tbody><tr><td>041</td><td>סופר תפירה</td><td>11281, 11282, 11283, 11285, 11287, 11290, 11292, 11293, 11295, 11298</td><td><button class="action-btn">✏️</button><button class="action-btn">🗑️</button></td></tr><tr><td>042</td><td>MD TEXTILES</td><td>11284, 11300</td><td><button class="action-btn">✏️</button><button class="action-btn">🗑️</button></td></tr><tr><td>043</td><td>שיר בדים</td><td>11286, 11291</td><td><button class="action-btn">✏️</button><button class="action-btn">🗑️</button></td></tr><tr><td>044</td><td>טקסטיל עלית</td><td>11288, 11296, 11299</td><td><button class="action-btn">✏️</button><button class="action-btn">🗑️</button></td></tr><tr><td>046</td><td>DORI IMPORT</td><td>11289, 11294, 11297</td><td><button class="action-btn">✏️</button><button class="action-btn">🗑️</button></td></tr></tbody>
-</table>
-</section>
-</main>
-<footer class="main-footer">
-<div class="container">
-<p>© 2025 MY DESIGN - כל הזכויות שמורות</p>
-</div>
-</footer>
-<script>
+  <header class="main-header">
+    <div class="container header-flex">
+      <img alt="לוגו MY DESIGN" class="logo-img" src="../images/logo.png" />
+      <nav class="navbar">
+        <ul class="nav-links">
+          <li><a href="admin-dashboard.html">דשבורד</a></li>
+          <li><a href="orders.html">הזמנות</a></li>
+          <li><a href="clients-log.html">לקוחות</a></li>
+          <li><a href="calendar.html">יומן</a></li>
+          <li><a class="active" href="inventory.html">מלאי</a></li>
+          <li><a href="payments.html">תשלומים</a></li>
+          <li><a href="../index.html">התנתקות</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="inventory-page container">
+    <div class="page-header">
+      <h1>ניהול מלאי</h1>
+      <div class="inventory-tabs">
+        <button class="tab-btn active" data-tab="existing-stock">מלאי</button>
+        <button class="tab-btn" data-tab="suppliers">רשימת ספקים</button>
+      </div>
+    </div>
+
+    <section class="inventory-tab active" id="existing-stock">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <div class="inventory-search" style="text-align: right;">
+          <input id="inventory-search" placeholder="הכנס מק״ט, שם פריט או קטגוריה" type="text" />
+        </div>
+        <button class="btn-primary" type="button" onclick="openModal('addItemModal')">+ הוסף פריט</button>
+        
+      </div>
+      <table class="table-style">
+        <thead>
+          <tr><th>מק"ט</th><th>שם פריט</th><th>כמות</th><th>קטגוריה</th><th>עודכן בתאריך</th><th>פעולות</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="inventoryDisplay" style="margin-top: 2rem;"></div>
+      <button class="btn-secondary" type="button" onclick="loadForecast()">תחזית מלאי שבועית</button>
+      <div id="forecastOutput" style="margin-top: 1.5rem; text-align: right;"></div>
+      
+
+      
+
+    </section>
+
+    <section class="inventory-tab" id="suppliers">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <div class="inventory-search" style="text-align: right;">
+          <input id="suppliers-search" placeholder="הכנס מק״ט, מספר או שם ספק" type="text" />
+        </div>
+        <button class="btn-primary" type="button" onclick="openModal('addSupplierModal')">+ הוסף ספק</button>
+      </div>
+      <table class="table-style">
+        <thead>
+          <tr><th>מס' ספק</th><th>שם ספק</th><th>מק"טים</th><th>פעולות</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <div id="addItemModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('addItemModal')">×</span>
+      <h2>הוסף פריט</h2>
+      <form id="addItemForm">
+        <input type="text" name="name" placeholder="שם הפריט" required />
+        <input type="number" name="quantity" placeholder="כמות" required />
+        <input type="text" name="type" placeholder="קטגוריה" required />
+        <button type="submit">הוסף</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="addSupplierModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('addSupplierModal')">×</span>
+      <h2>הוסף ספק</h2>
+      <form id="addSupplierForm">
+        <input type="text" name="supplier_name" placeholder="שם ספק" required />
+        <input type="text" name="contact_info" placeholder="פרטי קשר" required />
+        <button type="submit">הוסף</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>© 2025 MY DESIGN - כל הזכויות שמורות</p>
+    </div>
+  </footer>
+
+  <script src="../js/config.js"></script>
+  <script>
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       const tabs = document.querySelectorAll(".tab-btn");
       const sections = document.querySelectorAll(".inventory-tab");
@@ -184,11 +254,60 @@
           sections.forEach(s => s.classList.remove("active"));
           tab.classList.add("active");
           const target = document.getElementById(tab.dataset.tab);
-          target.classList.add("active");
+          if (target) target.classList.add("active");
         });
       });
-    });
-  
+
+      document.getElementById('addItemForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const now = new Date().toISOString();
+
+        const payload = {
+          name: formData.get('name'),
+          quantity: parseInt(formData.get('quantity')),
+          type: formData.get('type'),
+          updated_at: now
+        };
+
+        const res = await fetch(`${window.apiBaseUrl}/inventory`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          alert('הפריט נוסף בהצלחה');
+          closeModal('addItemModal');
+          e.target.reset();
+        } else {
+          alert('שגיאה בהוספת פריט');
+        }
+      });
+
+      document.getElementById('addSupplierForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const payload = {
+          supplier_name: formData.get('supplier_name'),
+          contact_info: formData.get('contact_info')
+        };
+
+        const res = await fetch('https://your-api-url/add-supplier', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          alert('הספק נוסף בהצלחה');
+          closeModal('addSupplierModal');
+          e.target.reset();
+        } else {
+          alert('שגיאה בהוספת ספק');
+        }
+      });
+
       const inventorySearchInput = document.getElementById('inventory-search');
       if (inventorySearchInput) {
         inventorySearchInput.addEventListener('input', () => {
@@ -217,6 +336,82 @@
           });
         });
       }
-    </script>
+    });
+
+    window.loadForecast = async function() {
+  const output = document.getElementById("forecastOutput");
+  output.innerHTML = "<p style='color: #666;'>טוען תחזית...</p>";
+
+  try {
+    const res = await fetch(`${window.apiBaseUrl}/inventory-forecast`);
+    if (!res.ok) throw new Error("שגיאה מהשרת");
+
+    const data = await res.json();
+    if (!data.forecasts || data.forecasts.length === 0) {
+      output.innerHTML = "<p>אין נתונים לחיזוי כרגע.</p>";
+      return;
+    }
+
+    let html = `<h3>תחזית לשבוע שמתחיל ב־${data.forecast_week_start}</h3><ul>`;
+    data.forecasts.forEach(item => {
+      html += `<li><strong>${item.name}</strong> (ID ${item.item_id}): ${item.predicted_quantity}</li>`;
+    });
+    html += "</ul>";
+    output.innerHTML = html;
+  } catch (err) {
+    output.innerHTML = `<p style="color:red;">אירעה שגיאה: ${err.message}</p>`;
+  }
+};
+
+async function loadInventory() {
+  const div = document.getElementById("inventoryDisplay");
+  div.innerHTML = "<p style='color:#666;'>טוען רשימת מלאי...</p>";
+
+  try {
+    const res = await fetch(`${window.apiBaseUrl}/inventory`);
+    if (!res.ok) throw new Error("שגיאת שרת");
+
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) {
+      div.innerHTML = "<p>אין נתוני מלאי להצגה.</p>";
+      return;
+    }
+
+    let html = `<h3>רשימת מלאי עדכנית</h3>`;
+    html += `<table border="1" style="width:100%; border-collapse: collapse; text-align: right;">
+      <thead>
+        <tr>
+          <th>מזהה</th>
+          <th>שם פריט</th>
+          <th>כמות</th>
+          <th>סוג</th>
+          <th>עודכן בתאריך</th>
+        </tr>
+      </thead><tbody>`;
+
+    data.forEach(item => {
+      html += `<tr>
+        <td>${item.item_id}</td>
+        <td>${item.name}</td>
+        <td>${item.quantity}</td>
+        <td>${item.type}</td>
+        <td>${item.updated_at?.split("T")[0]}</td>
+      </tr>`;
+    });
+
+    html += `</tbody></table>`;
+    div.innerHTML = html;
+
+  } catch (err) {
+    div.innerHTML = `<p style="color:red;">אירעה שגיאה בטעינת המלאי: ${err.message}</p>`;
+  }
+}
+window.onload = () => {
+  loadInventory();
+};
+
+
+
+  </script>
 </body>
 </html>

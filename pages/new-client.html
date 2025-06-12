@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html dir="rtl" lang="he">
@@ -62,33 +61,6 @@
       min-height: 100px;
     }
 
-    .toggle-buttons {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .toggle-buttons button {
-      flex: 1;
-      padding: 0.7rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      background: #fff;
-    }
-
-    .toggle-buttons button.active {
-      background: #111;
-      color: #fff;
-      border-color: #111;
-    }
-
-    .new-client-fields {
-      display: none;
-      margin-top: 1rem;
-    }
-
     .submit-btn {
       background: #111;
       color: #fff;
@@ -106,6 +78,17 @@
       text-align: center;
       padding: 1rem;
       border: 1px solid #0a0;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .form-error {
+      background: #ffe0e0;
+      color: #a00;
+      text-align: center;
+      padding: 1rem;
+      border: 1px solid #a00;
       border-radius: 0.5rem;
       margin-top: 1rem;
       display: none;
@@ -130,7 +113,7 @@
 <a href="clients-log.html" style="display:inline-block; margin-bottom: 1rem; text-decoration:none; color:#111; font-weight:600; margin-top: 1.5rem;">← חזרה לרשימת לקוחות</a>
 <h1>יצירת לקוחה חדשה</h1>
 <div class="form-wrapper">
-<form onsubmit="event.preventDefault(); document.getElementById('successMessage').style.display = 'block';">
+<form id="newClientForm">
 
 <div class="form-row" style="display: flex; gap: 1rem; flex-wrap: wrap;">
   <div class="form-group" style="flex: 1;">
@@ -149,8 +132,19 @@
 </div>
 
 <div class="form-group">
-  <label for="email">אימייל</label>
-  <input type="email" id="email" name="email" required style="font-family: Assistant;">
+  <label for="eventDate">תאריך אירוע</label>
+  <input type="date" id="eventDate" name="eventDate" required style="font-family: Assistant;">
+</div>
+
+<div class="form-group">
+  <label for="dressSelect">סוג שמלה</label>
+  <select id="dressSelect" name="dressSelect" required style="font-family: Assistant;">
+    <option value="">בחר/י שמלה</option>
+    <option value="כלה">כלה</option>
+    <option value="ערב">ערב</option>
+    <option value="מלוות">מלוות</option>
+    <option value="שמלות אחרות">שמלות אחרות</option>
+  </select>
 </div>
 
 <div class="form-group">
@@ -159,35 +153,74 @@
 </div>
 
 <button type="submit" class="submit-btn">שמור לקוחה</button>
+
 </form>
+<div id="successMessage" class="form-success">הלקוחה נשמרה בהצלחה!</div>
+<div id="errorMessage" class="form-error">אירעה שגיאה בשמירת הלקוחה. אנא נסה שוב.</div>
 </div>
 </main>
+
+
+<script src="../js/config.js"></script>
 <script>
-  const modeButtons = document.querySelectorAll('.client-mode-btn');
-  const existingClient = document.querySelector('.existing-client');
-  const newClientFields = document.querySelector('.new-client-fields');
+document.getElementById('newClientForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
 
-  modeButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      modeButtons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
+  // Hide previous messages
+  document.getElementById('successMessage').style.display = 'none';
+  document.getElementById('errorMessage').style.display = 'none';
 
-      const mode = button.dataset.mode;
-      if (mode === 'new') {
-        newClientFields.style.display = "block";
-        existingClient.style.display = "none";
-      } else {
-        newClientFields.style.display = "none";
-        existingClient.style.display = "block";
-      }
+  // Collect form data
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName = document.getElementById('lastName').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const eventDate = document.getElementById('eventDate').value;
+  const dressSelect = document.getElementById('dressSelect').value;
+  const notes = document.getElementById('notes').value.trim();
+
+  // Compose full name
+  const fullName = `${firstName} ${lastName}`;
+
+  // Validate required fields just in case
+  if (!firstName || !lastName || !phone || !eventDate || !dressSelect) {
+    alert('אנא מלא/י את כל השדות המסומנים.');
+    return;
+  }
+
+  
+  const payload = {
+    full_name: fullName,
+    phone: phone,
+    event_date: eventDate,
+    dress_select: dressSelect,
+    notes: notes
+    // submitted_at to be set on server side
+  };
+
+  try {
+    
+    const response = await fetch(`${window.apiBaseUrl}/clients`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
     });
-  });
 
-  document.getElementById('newOrderForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    document.getElementById('successMessage').style.display = 'block';
+    if (response.ok) {
+      this.reset();
+      document.getElementById('successMessage').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      document.getElementById('errorMessage').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  } catch (error) {
+    console.error('Error submitting client:', error);
+    document.getElementById('errorMessage').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  }
+});
 </script>
 </body>
 </html>

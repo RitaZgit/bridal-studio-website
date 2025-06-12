@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -83,6 +82,28 @@
       text-decoration: underline;
       font-weight: 500;
     }
+
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: #666;
+    }
+
+    .error {
+      text-align: center;
+      padding: 2rem;
+      color: #d32f2f;
+      background: #ffebee;
+      border: 1px solid #f8bbd9;
+      border-radius: 6px;
+      margin: 1rem 0;
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 2rem;
+      color: #666;
+    }
   </style>
 </head>
 <body>
@@ -114,228 +135,38 @@
       <select name="status-filter" id="status-filter">
         <option value="">סטטוס</option>
         <option value="ייעוץ">ייעוץ</option>
-        <option value="סקיצה">סקיצה</option>
+        <option value="בדים">בדים</option>
         <option value="מדידות">מדידות</option>
-	<option value="תפירה">תפירה</option>
+        <option value="תפירה">תפירה</option>
         <option value="מוכנה">מוכנה</option>
-        <option value="הושלמה">הושלמה</option>
       </select>
       <input type="text" name="client-search" id="client-search" placeholder="חיפוש לפי לקוחה">
       <input type="date" name="date-filter" id="date-filter">
     </div>
 
-    <table>
+    <div id="loading" class="loading">טוען נתונים...</div>
+    <div id="error" class="error" style="display: none;"></div>
+
+    <table id="orders-table" style="display: none;">
       <thead>
         <tr>
           <th>מספר הזמנה</th>
-          <th>שם לקוחה</th>
+          <th>מזהה לקוחה</th>
           <th>סוג שמלה</th>
+          <th>מחיר</th>
           <th>סטטוס</th>
-          <th>תאריך יעד</th>
+          <th>תאריך הגשה</th>
           <th>פרטים</th>
         </tr>
       </thead>
-      <tbody>
-       
-      
-        <tr>
-          <td>3001</td>
-          <td>ליה נחום</td>
-          <td>כלה</td>
-          <td>הושלמה</td>
-          <td>2025-08-23</td>
-          <td><a href="order-details-3001.html" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3002</td>
-          <td>טל יפרח</td>
-          <td>ערב</td>
-          <td>סקיצה</td>
-          <td>2025-09-09</td>
-          <td><a href="order-details.html?id=3002" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3003</td>
-          <td>אור שרון</td>
-          <td>כלה</td>
-          <td>הושלמה</td>
-          <td>2025-11-17</td>
-          <td><a href="order-details.html?id=3003" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3004</td>
-          <td>מאיה לוי</td>
-          <td>ערב</td>
-          <td>ייעוץ</td>
-          <td>2025-8-11</td>
-          <td><a href="order-details.html?id=3004" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3005</td>
-          <td>עדן לוי</td>
-          <td>כלה</td>
-          <td>מוכנה</td>
-          <td>2025-8-22</td>
-          <td><a href="order-details.html?id=3005" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3006</td>
-          <td>רוני קדוש</td>
-          <td>ערב</td>
-          <td>סקיצה</td>
-          <td>2025-11-17</td>
-          <td><a href="order-details.html?id=3006" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3007</td>
-          <td>אופק שלו</td>
-          <td>כלה</td>
-          <td>מוכנה</td>
-          <td>2025-7-28</td>
-          <td><a href="order-details.html?id=3007" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3008</td>
-          <td>שירה שרון</td>
-          <td>ערב</td>
-          <td>מדידות</td>
-          <td>2025-08-08</td>
-          <td><a href="order-details.html?id=3008" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3009</td>
-          <td>אור דביר</td>
-          <td>כלה</td>
-          <td>הושלמה</td>
-          <td>2025-6-13</td>
-          <td><a href="order-details.html?id=3009" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3010</td>
-          <td>עדן דביר</td>
-          <td>ערב</td>
-          <td>מדידות</td>
-          <td>2025-11-26</td>
-          <td><a href="order-details.html?id=3010" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3011</td>
-          <td>שני בן דוד</td>
-          <td>כלה</td>
-          <td>מוכנה</td>
-          <td>2025-7-11</td>
-          <td><a href="order-details.html?id=3011" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3012</td>
-          <td>שני שלו</td>
-          <td>ערב</td>
-          <td>הושלמה</td>
-          <td>2025-06-11</td>
-          <td><a href="order-details.html?id=3012" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3013</td>
-          <td>רוני כהן</td>
-          <td>כלה</td>
-          <td>תפירה</td>
-          <td>2025-9-31</td>
-          <td><a href="order-details.html?id=3013" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3014</td>
-          <td>אופק בן דוד</td>
-          <td>ערב</td>
-          <td>ייעוץ</td>
-          <td>2025-12-29</td>
-          <td><a href="order-details.html?id=3014" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3015</td>
-          <td>שני לוי</td>
-          <td>כלה</td>
-          <td>תפירה</td>
-          <td>2025-08-20</td>
-          <td><a href="order-details.html?id=3015" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3016</td>
-          <td>אופק קדוש</td>
-          <td>ערב</td>
-          <td>הושלמה</td>
-          <td>2025-06-06</td>
-          <td><a href="order-details.html?id=3016" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3017</td>
-          <td>טל שלו</td>
-          <td>כלה</td>
-          <td>הושלמה</td>
-          <td>2025-10-26</td>
-          <td><a href="order-details.html?id=3017" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3018</td>
-          <td>אור נחום</td>
-          <td>ערב</td>
-          <td>מוכנה</td>
-          <td>2025-12-19</td>
-          <td><a href="order-details.html?id=3018" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3019</td>
-          <td>שירה כהן</td>
-          <td>כלה</td>
-          <td>מוכנה</td>
-          <td>2025-07-05</td>
-          <td><a href="order-details.html?id=3019" class="table-link">לצפייה</a></td>
-        </tr>
-    
-        <tr>
-          <td>3020</td>
-          <td>נועה נחום</td>
-          <td>ערב</td>
-          <td>ייעוץ</td>
-          <td>2025-12-28</td>
-          <td><a href="order-details.html?id=3020" class="table-link">לצפייה</a></td>
-        </tr>
- <tr>
-          <td>1024</td>
-          <td>מור כהן</td>
-          <td>כלה</td>
-          <td>סקיצה</td>
-          <td>2025-07-10</td>
-          <td><a href="order-details.html?id=3021" class="table-link">לצפייה</a></td>
-        </tr>
-        <tr>
-          <td>1025</td>
-          <td>שני דביר</td>
-          <td>ערב</td>
-          <td>מדידות</td>
-          <td>2025-08-01</td>
-          <td><a href="order-details.html?id=3022" class="table-link">לצפייה</a></td>
-        </tr>
-    
-</tbody>
+      <tbody id="orders-tbody">
+        <!-- Orders will be loaded here -->
+      </tbody>
     </table>
+
+    <div id="no-data" class="no-data" style="display: none;">
+      אין הזמנות להצגה
+    </div>
   </main>
 
   <footer class="main-footer">
@@ -345,40 +176,128 @@
   </footer>
 
 
+<script src="../js/config.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  let allOrders = [];
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    await loadOrders();
+    setupFilters();
+  });
+
+  async function loadOrders() {
+    const loading = document.getElementById('loading');
+    const error = document.getElementById('error');
+    const table = document.getElementById('orders-table');
+    const noData = document.getElementById('no-data');
+
+    try {
+      loading.style.display = 'block';
+      error.style.display = 'none';
+      table.style.display = 'none';
+      noData.style.display = 'none';
+
+      const response = await fetch(`${window.apiBaseUrl}/orders`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const orders = await response.json();
+      allOrders = orders;
+
+      loading.style.display = 'none';
+
+      if (orders.length === 0) {
+        noData.style.display = 'block';
+      } else {
+        displayOrders(orders);
+        table.style.display = 'table';
+      }
+
+    } catch (err) {
+      console.error('Error loading orders:', err);
+      loading.style.display = 'none';
+      error.textContent = 'שגיאה בטעינת ההזמנות: ' + err.message;
+      error.style.display = 'block';
+    }
+  }
+
+
+  function displayOrders(orders) {
+    const tbody = document.getElementById('orders-tbody');
+    tbody.innerHTML = '';
+
+    orders.forEach(order => {
+      const row = document.createElement('tr');
+      
+      const submittedDate = order.submitted_at ? 
+        new Date(order.submitted_at).toLocaleDateString('he-IL') : 
+        'לא זמין';
+
+      row.innerHTML = `
+        <td>${order.order_id}</td>
+        <td>${order.client_id}</td>
+        <td>${order.dress_type}</td>
+        <td>₪${parseFloat(order.price || 0).toFixed(2)}</td>
+        <td>${order.status}</td>
+        <td>${submittedDate}</td>
+        <td><a href="order-details.html?id=${order.order_id}" class="table-link">לצפייה</a></td>
+      `;
+      
+      tbody.appendChild(row);
+    });
+  }
+
+  function setupFilters() {
     const statusFilter = document.getElementById('status-filter');
     const clientSearch = document.getElementById('client-search');
     const dateFilter = document.getElementById('date-filter');
-    const rows = document.querySelectorAll("tbody tr");
 
     function applyFilters() {
       const status = statusFilter.value;
-      const name = clientSearch.value.toLowerCase();
+      const clientId = clientSearch.value.toLowerCase();
       const date = dateFilter.value;
 
-      rows.forEach(row => {
-        const cells = row.querySelectorAll("td");
-        const rowStatus = cells[3].textContent;
-        const rowName = cells[1].textContent.toLowerCase();
-        const rowDate = cells[4].textContent;
-
-        const matchStatus = !status || rowStatus === status;
-        const matchName = !name || rowName.includes(name);
-        const matchDate = !date || rowDate === date;
-
-        if (matchStatus && matchName && matchDate) {
-          row.style.display = "";
-        } else {
-          row.style.display = "none";
+      const filteredOrders = allOrders.filter(order => {
+        const matchStatus = !status || order.status === status;
+        const matchClient = !clientId || order.client_id.toString().includes(clientId);
+        
+        let matchDate = true;
+        if (date && order.submitted_at) {
+          const orderDate = new Date(order.submitted_at).toISOString().split('T')[0];
+          matchDate = orderDate === date;
+        } else if (date && !order.submitted_at) {
+          matchDate = false;
         }
+
+        return matchStatus && matchClient && matchDate;
       });
+
+      displayOrders(filteredOrders);
+      
+      const table = document.getElementById('orders-table');
+      const noData = document.getElementById('no-data');
+      
+      if (filteredOrders.length === 0) {
+        table.style.display = 'none';
+        noData.style.display = 'block';
+        noData.textContent = 'לא נמצאו הזמנות המתאימות לחיפוש';
+      } else {
+        table.style.display = 'table';
+        noData.style.display = 'none';
+      }
     }
 
     statusFilter.addEventListener('change', applyFilters);
     clientSearch.addEventListener('input', applyFilters);
     dateFilter.addEventListener('change', applyFilters);
-  });
+  }
 </script>
 
 </body>

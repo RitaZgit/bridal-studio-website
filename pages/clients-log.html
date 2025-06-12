@@ -107,6 +107,7 @@
   <main class="container clients-page">
     <div class="page-header">
       <h1>רשימת לקוחות</h1>
+
       
     </div>
 
@@ -115,6 +116,22 @@
 <div class="filters" style="display: flex; justify-content: center; margin-bottom: 1.5rem;">
   <input type="text" id="client-unified" placeholder="חיפוש לפי שם, טלפון, מייל או קוד לקוחה" style="padding: 0.5rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 6px; width: 300px;">
 </div>
+
+<section style="max-width: 1000px; margin: 2rem auto;">
+  <h2>ניהול לקוחות</h2>
+  <form id="client-form">
+    <input type="hidden" id="client-id">
+    <input type="text" id="full_name" placeholder="שם מלא" required><br>
+    <input type="text" id="phone" placeholder="טלפון" required><br>
+    <input type="date" id="event_date" placeholder="תאריך אירוע" required><br>
+    <input type="text" id="dress_select" placeholder="בחירת שמלה"><br>
+    <textarea id="notes" placeholder="הערות"></textarea><br>
+    <button type="submit">שמור לקוחה</button>
+    <button type="button" onclick="deleteClient()">מחק</button>
+    <button type="button" onclick="loadClients()">טען רשימה</button>
+  </form>
+</section>
+
 
 
 
@@ -156,28 +173,108 @@
 
 
 
-
+<script src="../js/config.js"></script>
 <script>
-  // סינון אחיד לפי מזהה, שם, טלפון או מייל
+  const API_URL = `${window.apiBaseUrl}/clients`;
+;
+
+  async function loadClients() {
+    const res = await fetch(API_URL);
+    const clients = await res.json();
+
+    const tbody = document.querySelector("tbody");
+    tbody.innerHTML = "";
+
+    clients.forEach(client => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${client.id}</td>
+        <td>${client.full_name}</td>
+        <td>${client.phone}</td>
+        <td>${client.email || ''}</td>
+        <td><a href="#" class="table-link" onclick='loadToForm(${JSON.stringify(client)})'>לעריכה</a></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  async function deleteClient() {
+    const id = document.getElementById("client-id").value;
+    if (!id) {
+      alert("יש להזין מזהה לקוחה למחיקה");
+      return;
+    }
+
+    const response = await fetch(`${API_URL}?id=${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      alert("הלקוחה נמחקה");
+      document.getElementById("client-form").reset();
+      loadClients();
+    } else {
+      alert("שגיאה במחיקה");
+    }
+  }
+
+  function loadToForm(client) {
+    document.getElementById("client-id").value = client.id;
+    document.getElementById("full_name").value = client.full_name;
+    document.getElementById("phone").value = client.phone;
+    document.getElementById("event_date").value = client.event_date;
+    document.getElementById("dress_select").value = client.dress_select;
+    document.getElementById("notes").value = client.notes;
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     const unifiedInput = document.getElementById('client-unified');
     const rows = document.querySelectorAll("tbody tr");
 
     function applyUnifiedFilter() {
       const value = unifiedInput.value.toLowerCase();
-
       rows.forEach(row => {
         const id = row.children[0].textContent.toLowerCase();
         const name = row.children[1].textContent.toLowerCase();
         const phone = row.children[2].textContent.toLowerCase();
         const email = row.children[3].textContent.toLowerCase();
-
         const match = !value || id.includes(value) || name.includes(value) || phone.includes(value) || email.includes(value);
         row.style.display = match ? "" : "none";
       });
     }
 
     unifiedInput.addEventListener('input', applyUnifiedFilter);
+
+    document.getElementById("client-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = document.getElementById("client-id").value;
+      const method = id ? "PUT" : "POST";
+
+      const payload = {
+        id: id || undefined,
+        full_name: document.getElementById("full_name").value,
+        phone: document.getElementById("phone").value,
+        event_date: document.getElementById("event_date").value,
+        dress_select: document.getElementById("dress_select").value,
+        notes: document.getElementById("notes").value,
+      };
+
+      const response = await fetch(API_URL, {
+        method: method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        alert("הלקוחה נשמרה בהצלחה");
+        document.getElementById("client-form").reset();
+        loadClients();
+      } else {
+        alert("שגיאה בשמירת הלקוחה");
+      }
+    });
+
+    loadClients(); // optional: load initial client list when page loads
   });
 </script>
 
