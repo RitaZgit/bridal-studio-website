@@ -176,7 +176,7 @@
   </footer>
 
 
-<script src="../js/config.js"></script>
+<script src="../config.js"></script>
 <script>
   let allOrders = [];
 
@@ -197,7 +197,7 @@
       table.style.display = 'none';
       noData.style.display = 'none';
 
-      const response = await fetch(`${API_BASE_URL}/orders`, {
+      const response = await fetch(`${window.API_BASE_URL}/orders`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
