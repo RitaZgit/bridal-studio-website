@@ -23,3 +23,4 @@ build/
 
 # Ignore S3 sync folders (if applicable)
 .s3/
+config.js
