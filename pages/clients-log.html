@@ -6,9 +6,73 @@
   <link rel="stylesheet" href="../css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Assistant', sans-serif;
+    .main-header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
     }
+
+    .clients-page {
+      padding: 2rem 0;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .page-header h1 {
+      font-size: 1.8rem;
+      margin: 0;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .filters input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 300px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: #f2f2f2;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    tr:hover {
+      background-color: #fafafa;
+    }
+
+    a.table-link {
+      color: #111;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
     .modal {
       display: none;
       position: fixed;
@@ -17,218 +81,221 @@
       top: 0;
       width: 100%;
       height: 100%;
+      overflow: auto;
       background-color: rgba(0, 0, 0, 0.5);
-      justify-content: center;
-      align-items: center;
     }
+
     .modal-content {
-      background: #fff;
-      padding: 2rem;
-      border-radius: 1rem;
-      max-width: 400px;
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
       width: 90%;
+      max-width: 400px;
       text-align: right;
-      position: relative;
     }
-    .modal-content input,
-    .modal-content textarea {
+
+    .modal-content input, .modal-content textarea {
       width: 100%;
-      margin-bottom: 1rem;
-      padding: 0.75rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      margin-bottom: 10px;
+      padding: 10px;
       font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
+
     .modal-content button {
       background-color: #111;
       color: #fff;
-      padding: 0.75rem 1.5rem;
+      padding: 10px 20px;
       border: none;
       border-radius: 6px;
-      font-size: 1rem;
       cursor: pointer;
-      width: 100%;
+      margin-left: 5px;
     }
+
     .modal-content .close {
-      position: absolute;
-      left: 1rem;
-      top: 1rem;
+      float: left;
       font-size: 1.5rem;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <header class="main-header">
-    <div class="container header-flex">
-      <img src="../images/logo.png" alt="לוגו MY DESIGN" class="logo-img">
-      <nav class="navbar">
-        <ul class="nav-links">
-          <li><a href="admin-dashboard.html">דשבורד</a></li>
-          <li><a href="orders.html">הזמנות</a></li>
-          <li><a href="clients-log.html" class="active">לקוחות</a></li>
-          <li><a href="calendar.html">יומן</a></li>
-          <li><a href="inventory.html">מלאי</a></li>
-          <li><a href="payments.html">תשלומים</a></li>
-          <li><a href="../index.html">התנתקות</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
 
-  <main class="container clients-page">
-    <div class="page-header">
-      <h1>רשימת לקוחות</h1>
-      <button class="btn-primary" onclick="openModal('clientModal')">+ לקוחה חדשה</button>
-    </div>
-    <div class="filters" style="text-align: center;">
-      <input type="text" id="client-unified" placeholder="חיפוש לפי שם, טלפון, מייל או קוד לקוחה" style="padding: 0.5rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 6px; width: 300px;">
-    </div>
-    <table id="clients-table" style="width: 100%; margin-top: 1rem;">
-      <thead>
-        <tr>
-          <th>מזהה</th>
-          <th>שם מלא</th>
-          <th>טלפון</th>
-          <th>תאריך אירוע</th>
-          <th>סוג שמלה</th>
-          <th>הערות</th>
-          <th>פעולות</th>
-        </tr>
-      </thead>
-      <tbody id="clients-tbody"></tbody>
-    </table>
-    <div id="no-data" class="no-data" style="display: none;">אין לקוחות להצגה</div>
-    <div id="error" class="error" style="display: none;">שגיאה בטעינת הנתונים</div>
-  </main>
+<header class="main-header">
+  <div class="container header-flex">
+    <img src="../images/logo.png" alt="לוגו MY DESIGN" class="logo-img">
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="admin-dashboard.html">דשבורד</a></li>
+        <li><a href="orders.html">הזמנות</a></li>
+        <li><a href="clients-log.html" class="active">לקוחות</a></li>
+        <li><a href="calendar.html">יומן</a></li>
+        <li><a href="inventory.html">מלאי</a></li>
+        <li><a href="payments.html">תשלומים</a></li>
+        <li><a href="../index.html">התנתקות</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-  <div id="clientModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal('clientModal')">×</span>
-      <h2>טופס לקוחה</h2>
-      <form id="client-form">
-        <input type="hidden" id="client-id">
-        <input type="text" id="full_name" placeholder="שם מלא" required>
-        <input type="text" id="phone" placeholder="טלפון" required>
-        <input type="date" id="event_date" placeholder="תאריך אירוע">
-        <input type="text" id="dress_select" placeholder="בחירת שמלה">
-        <textarea id="notes" placeholder="הערות"></textarea>
-        <button type="submit">שמור לקוחה</button>
-        <button type="button" onclick="deleteClient()" style="margin-top: 0.5rem; background-color: #c62828;">מחק</button>
-      </form>
-    </div>
+<main class="container clients-page">
+  <div class="page-header">
+    <h1>רשימת לקוחות</h1>
+    <button class="btn-primary" onclick="openModal()">+ לקוחה חדשה</button>
   </div>
 
-  <footer class="main-footer">
-    <div class="container">
-      <p>© 2025 MY DESIGN - כל הזכויות שמורות</p>
-    </div>
-  </footer>
+  <div class="filters">
+    <input type="text" id="client-unified" placeholder="חיפוש לפי שם, טלפון, תאריך או סוג שמלה">
+  </div>
 
-  <script src="../config.js"></script>
-  <script>
-    const API_URL = `${window.API_BASE_URL}/clients`;
+  <table id="clients-table">
+    <thead>
+      <tr>
+        <th>מזהה</th>
+        <th>שם מלא</th>
+        <th>טלפון</th>
+        <th>תאריך אירוע</th>
+        <th>סוג שמלה</th>
+        <th>הערות</th>
+        <th>פעולות</th>
+      </tr>
+    </thead>
+    <tbody id="clients-tbody"></tbody>
+  </table>
 
-    function openModal(id) {
-      document.getElementById(id).style.display = 'flex';
+  <div id="no-data" class="no-data" style="display: none;">אין לקוחות להצגה</div>
+  <div id="error" class="error" style="display: none;">שגיאה בטעינת הנתונים</div>
+</main>
+
+<div id="clientModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">×</span>
+    <h2>ניהול לקוחה</h2>
+    <form id="client-form">
+      <input type="hidden" id="client-id">
+      <input type="text" id="full_name" placeholder="שם מלא" required />
+      <input type="text" id="phone" placeholder="טלפון" required />
+      <input type="date" id="event_date" placeholder="תאריך אירוע" />
+      <input type="text" id="dress_select" placeholder="בחירת שמלה" />
+      <textarea id="notes" placeholder="הערות"></textarea>
+      <div class="form-actions">
+        <button type="submit">שמור לקוחה</button>
+        <button type="button" id="delete-btn">מחק</button>
+        <button type="button" onclick="closeModal()">סגור</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="main-footer">
+  <div class="container">
+    <p>© 2025 MY DESIGN - כל הזכויות שמורות</p>
+  </div>
+</footer>
+
+<script src="../js/config.js"></script>
+<script>
+  const API_URL = `${window.API_BASE_URL}/clients`;
+
+  function openModal() {
+    document.getElementById("clientModal").style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById("clientModal").style.display = "none";
+    document.getElementById("client-form").reset();
+    document.getElementById("client-id").value = "";
+  }
+
+  function loadToForm(client) {
+    openModal();
+    document.getElementById("client-id").value = client.id;
+    document.getElementById("full_name").value = client.full_name;
+    document.getElementById("phone").value = client.phone;
+    document.getElementById("event_date").value = client.event_date;
+    document.getElementById("dress_select").value = client.dress_select;
+    document.getElementById("notes").value = client.notes;
+  }
+
+  async function loadClients() {
+    const tbody = document.getElementById("clients-tbody");
+    tbody.innerHTML = "";
+
+    try {
+      const res = await fetch(API_URL);
+      const clients = await res.json();
+
+      if (!Array.isArray(clients)) throw new Error("Invalid response");
+
+      clients.forEach(client => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${client.id}</td>
+          <td>${client.full_name}</td>
+          <td>${client.phone}</td>
+          <td>${client.event_date || ""}</td>
+          <td>${client.dress_select || ""}</td>
+          <td>${client.notes || ""}</td>
+          <td><a href="#" class="table-link" onclick='loadToForm(${JSON.stringify(client)})'>לעריכה</a></td>
+        `;
+        tbody.appendChild(row);
+      });
+    } catch (err) {
+      document.getElementById("error").style.display = "block";
+      console.error("Error loading clients:", err);
     }
-    function closeModal(id) {
-      document.getElementById(id).style.display = 'none';
-      document.getElementById("client-form").reset();
-    }
+  }
 
-    async function loadClients() {
-      try {
-        const res = await fetch(API_URL);
-        const clients = await res.json();
+  document.addEventListener("DOMContentLoaded", () => {
+    loadClients();
 
-        const tbody = document.getElementById("clients-tbody");
-        tbody.innerHTML = "";
-
-        clients.forEach(client => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${client.id}</td>
-            <td>${client.full_name}</td>
-            <td>${client.phone}</td>
-            <td>${client.event_date || ''}</td>
-            <td>${client.dress_select || ''}</td>
-            <td>${client.notes || ''}</td>
-            <td><a href="#" class="table-link" onclick='loadToForm(${JSON.stringify(client)})'>ערוך</a></td>
-          `;
-          tbody.appendChild(tr);
-        });
-      } catch (err) {
-        document.getElementById("error").style.display = "block";
-        document.getElementById("error").textContent = "שגיאה בטעינת נתונים";
-      }
-    }
-
-    function loadToForm(client) {
-      openModal('clientModal');
-      document.getElementById("client-id").value = client.id;
-      document.getElementById("full_name").value = client.full_name;
-      document.getElementById("phone").value = client.phone;
-      document.getElementById("event_date").value = client.event_date || '';
-      document.getElementById("dress_select").value = client.dress_select || '';
-      document.getElementById("notes").value = client.notes || '';
-    }
-
-    async function deleteClient() {
+    document.getElementById("client-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
       const id = document.getElementById("client-id").value;
-      if (!id) return alert("יש להזין מזהה לקוחה למחיקה");
+      const method = id ? "PUT" : "POST";
+
+      const payload = {
+        id: id || undefined,
+        full_name: document.getElementById("full_name").value,
+        phone: document.getElementById("phone").value,
+        event_date: document.getElementById("event_date").value,
+        dress_select: document.getElementById("dress_select").value,
+        notes: document.getElementById("notes").value,
+      };
+
+      const res = await fetch(API_URL, {
+        method: method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        alert("הלקוחה נשמרה בהצלחה");
+        closeModal();
+        loadClients();
+      } else {
+        alert("שגיאה בשמירת הלקוחה");
+      }
+    });
+
+    document.getElementById("delete-btn").addEventListener("click", async () => {
+      const id = document.getElementById("client-id").value;
+      if (!id) return alert("בחרי לקוחה למחיקה");
 
       const res = await fetch(`${API_URL}?id=${id}`, { method: "DELETE" });
+
       if (res.ok) {
         alert("הלקוחה נמחקה");
-        closeModal('clientModal');
+        closeModal();
         loadClients();
       } else {
         alert("שגיאה במחיקה");
       }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("client-form").addEventListener("submit", async e => {
-        e.preventDefault();
-        const id = document.getElementById("client-id").value;
-        const method = id ? "PUT" : "POST";
-
-        const payload = {
-          id: id || undefined,
-          full_name: document.getElementById("full_name").value,
-          phone: document.getElementById("phone").value,
-          event_date: document.getElementById("event_date").value,
-          dress_select: document.getElementById("dress_select").value,
-          notes: document.getElementById("notes").value
-        };
-
-        const res = await fetch(API_URL, {
-          method,
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-
-        if (res.ok) {
-          alert("הלקוחה נשמרה בהצלחה");
-          closeModal('clientModal');
-          loadClients();
-        } else {
-          alert("שגיאה בשמירת הלקוחה");
-        }
-      });
-
-      document.getElementById("client-unified").addEventListener("input", () => {
-        const value = document.getElementById("client-unified").value.toLowerCase();
-        const rows = document.querySelectorAll("#clients-tbody tr");
-        rows.forEach(row => {
-          const text = row.textContent.toLowerCase();
-          row.style.display = text.includes(value) ? "" : "none";
-        });
-      });
-
-      loadClients();
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>
