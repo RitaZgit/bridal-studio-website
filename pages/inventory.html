@@ -270,7 +270,7 @@
           updated_at: now
         };
 
-        const res = await fetch(`${window.apiBaseUrl}/inventory`, {
+        const res = await fetch(`${window.API_BASE_URL}/inventory`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -343,7 +343,7 @@
   output.innerHTML = "<p style='color: #666;'>טוען תחזית...</p>";
 
   try {
-    const res = await fetch(`${window.apiBaseUrl}/inventory-forecast`);
+    const res = await fetch(`${window.API_BASE_URL}/inventory-forecast`);
     if (!res.ok) throw new Error("שגיאה מהשרת");
 
     const data = await res.json();
@@ -368,7 +368,7 @@ async function loadInventory() {
   div.innerHTML = "<p style='color:#666;'>טוען רשימת מלאי...</p>";
 
   try {
-    const res = await fetch(`${window.apiBaseUrl}/inventory`);
+    const res = await fetch(`${window.API_BASE_URL}/inventory`);
     if (!res.ok) throw new Error("שגיאת שרת");
 
     const data = await res.json();

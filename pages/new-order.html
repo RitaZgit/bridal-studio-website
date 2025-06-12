@@ -227,7 +227,7 @@
     };
 
     try {
-      const orderResponse = await fetch(`${window.apiBaseUrl}/orders`, {
+      const orderResponse = await fetch(`${window.API_BASE_URL}/orders`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(orderData)

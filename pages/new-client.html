@@ -199,7 +199,7 @@ document.getElementById('newClientForm').addEventListener('submit', async functi
 
   try {
     
-    const response = await fetch(`${window.apiBaseUrl}/clients`, {
+    const response = await fetch(`${window.API_BASE_URL}/clients`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
