@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -6,95 +5,68 @@
   <title>ניהול לקוחות | MY DESIGN</title>
   <link rel="stylesheet" href="../css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600&display=swap" rel="stylesheet">
-  <script src="../js/script.js" defer></script>
   <style>
-    .main-header .container {
-      flex-direction: row-reverse;
+    body {
+      font-family: 'Assistant', sans-serif;
     }
-
-    .clients-page {
-      padding: 2rem 0;
-    }
-
-    .page-header {
-      display: flex;
-      justify-content: space-between;
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
       align-items: center;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
     }
-
-    .page-header h1 {
-      font-size: 1.8rem;
-      margin: 0;
+    .modal-content {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 1rem;
+      max-width: 400px;
+      width: 90%;
+      text-align: right;
+      position: relative;
     }
-
-    .new-order-btn {
-      background: #111;
+    .modal-content input,
+    .modal-content textarea {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    .modal-content button {
+      background-color: #111;
       color: #fff;
-      padding: 0.6rem 1.2rem;
+      padding: 0.75rem 1.5rem;
       border: none;
       border-radius: 6px;
       font-size: 1rem;
       cursor: pointer;
-      text-decoration: none;
-    }
-
-    .filters {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.5rem;
-    }
-
-    .filters select,
-    .filters input {
-      padding: 0.5rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    table {
       width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      overflow: hidden;
     }
-
-    thead {
-      background: #f2f2f2;
-    }
-
-    th, td {
-      padding: 1rem;
-      text-align: center;
-      border-bottom: 1px solid #eee;
-    }
-
-    tr:hover {
-      background-color: #fafafa;
-    }
-
-    a.table-link {
-      color: #111;
-      text-decoration: underline;
-      font-weight: 500;
+    .modal-content .close {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-
   <header class="main-header">
     <div class="container header-flex">
       <img src="../images/logo.png" alt="לוגו MY DESIGN" class="logo-img">
       <nav class="navbar">
         <ul class="nav-links">
           <li><a href="admin-dashboard.html">דשבורד</a></li>
-          <li><a href="orders.html" class="active">הזמנות</a></li>
-          <li><a href="clients-log.html">לקוחות</a></li>
+          <li><a href="orders.html">הזמנות</a></li>
+          <li><a href="clients-log.html" class="active">לקוחות</a></li>
           <li><a href="calendar.html">יומן</a></li>
           <li><a href="inventory.html">מלאי</a></li>
           <li><a href="payments.html">תשלומים</a></li>
@@ -107,63 +79,45 @@
   <main class="container clients-page">
     <div class="page-header">
       <h1>רשימת לקוחות</h1>
-
-      
+      <button class="btn-primary" onclick="openModal('clientModal')">+ לקוחה חדשה</button>
     </div>
-
-    
-
-<div class="filters" style="display: flex; justify-content: center; margin-bottom: 1.5rem;">
-  <input type="text" id="client-unified" placeholder="חיפוש לפי שם, טלפון, מייל או קוד לקוחה" style="padding: 0.5rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 6px; width: 300px;">
-</div>
-
-<section style="max-width: 1000px; margin: 2rem auto;">
-  <h2>ניהול לקוחות</h2>
-  <form id="client-form">
-    <input type="hidden" id="client-id">
-    <input type="text" id="full_name" placeholder="שם מלא" required><br>
-    <input type="text" id="phone" placeholder="טלפון" required><br>
-    <input type="date" id="event_date" placeholder="תאריך אירוע" required><br>
-    <input type="text" id="dress_select" placeholder="בחירת שמלה"><br>
-    <textarea id="notes" placeholder="הערות"></textarea><br>
-    <button type="submit">שמור לקוחה</button>
-    <button type="button" onclick="deleteClient()">מחק</button>
-    <button type="button" onclick="loadClients()">טען רשימה</button>
-  </form>
-</section>
-
-
-
-
-    <table style="max-width: 1000px; margin: 0 auto;">
+    <div class="filters" style="text-align: center;">
+      <input type="text" id="client-unified" placeholder="חיפוש לפי שם, טלפון, מייל או קוד לקוחה" style="padding: 0.5rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 6px; width: 300px;">
+    </div>
+    <table id="clients-table" style="width: 100%; margin-top: 1rem;">
       <thead>
         <tr>
-          <th>קוד לקוחה</th>
-          <th>שם לקוחה</th>
+          <th>מזהה</th>
+          <th>שם מלא</th>
           <th>טלפון</th>
-          <th>אימייל</th>
-          <th>פרטים</th>
+          <th>תאריך אירוע</th>
+          <th>סוג שמלה</th>
+          <th>הערות</th>
+          <th>פעולות</th>
         </tr>
       </thead>
-      <tbody>
-<tr><td>1001</td><td>ליה נחום</td><td>050-3456789</td><td>leah.nahum@gmail.com</td><td><a href="client-details.html" class="table-link">לצפייה</a></td></tr>
-<tr><td>1002</td><td>דניאל מזרחי</td><td>052-7643210</td><td>danielmiz@gmail.com</td><td><a href="order-details.html?id=3002" class="table-link">לצפייה</a></td></tr>
-<tr><td>1003</td><td>טל יפרח</td><td>054-9283746</td><td>tal.y@gmail.com</td><td><a href="order-details.html?id=3003" class="table-link">לצפייה</a></td></tr>
-<tr><td>1004</td><td>אורית ברק</td><td>050-6677889</td><td>oritb@yahoo.com</td><td><a href="order-details.html?id=3004" class="table-link">לצפייה</a></td></tr>
-<tr><td>1005</td><td>נועה כהן</td><td>052-1112233</td><td>noa.cohen@gmail.com</td><td><a href="order-details.html?id=3005" class="table-link">לצפייה</a></td></tr>
-<tr><td>1006</td><td>מאיה לוי</td><td>053-9876543</td><td>maya.levi@outlook.com</td><td><a href="order-details.html?id=3006" class="table-link">לצפייה</a></td></tr>
-<tr><td>1007</td><td>שירה עזר</td><td>050-2223344</td><td>shira.ezer@gmail.com</td><td><a href="order-details.html?id=3007" class="table-link">לצפייה</a></td></tr>
-<tr><td>1008</td><td>רוני קדוש</td><td>052-7788991</td><td>ronikadosh@mail.com</td><td><a href="order-details.html?id=3008" class="table-link">לצפייה</a></td></tr>
-<tr><td>1009</td><td>אביגיל שלו</td><td>050-1114455</td><td>avigail.s@gmail.com</td><td><a href="order-details.html?id=3009" class="table-link">לצפייה</a></td></tr>
-<tr><td>1010</td><td>שני שלו</td><td>053-1122334</td><td>shani.shalev@gmail.com</td><td><a href="order-details.html?id=3010" class="table-link">לצפייה</a></td></tr>
-<tr><td>1011</td><td>אופק בן דוד</td><td>050-8887766</td><td>ofekbd@example.com</td><td><a href="order-details.html?id=3011" class="table-link">לצפייה</a></td></tr>
-<tr><td>1012</td><td>אור דביר</td><td>052-4455667</td><td>or.dvir@gmail.com</td><td><a href="order-details.html?id=3012" class="table-link">לצפייה</a></td></tr>
-<tr><td>1013</td><td>רוני כהן</td><td>054-3332221</td><td>roni.k@gmail.com</td><td><a href="order-details.html?id=3013" class="table-link">לצפייה</a></td></tr>
-<tr><td>1014</td><td>אורית שלו</td><td>050-1122112</td><td>oritshalev@gmail.com</td><td><a href="order-details.html?id=3014" class="table-link">לצפייה</a></td></tr>
-<tr><td>1015</td><td>עדן לוי</td><td>052-6661234</td><td>edenlevi@hotmail.com</td><td><a href="order-details.html?id=3015" class="table-link">לצפייה</a></td></tr>
-</tbody>
+      <tbody id="clients-tbody"></tbody>
     </table>
+    <div id="no-data" class="no-data" style="display: none;">אין לקוחות להצגה</div>
+    <div id="error" class="error" style="display: none;">שגיאה בטעינת הנתונים</div>
   </main>
+
+  <div id="clientModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('clientModal')">×</span>
+      <h2>טופס לקוחה</h2>
+      <form id="client-form">
+        <input type="hidden" id="client-id">
+        <input type="text" id="full_name" placeholder="שם מלא" required>
+        <input type="text" id="phone" placeholder="טלפון" required>
+        <input type="date" id="event_date" placeholder="תאריך אירוע">
+        <input type="text" id="dress_select" placeholder="בחירת שמלה">
+        <textarea id="notes" placeholder="הערות"></textarea>
+        <button type="submit">שמור לקוחה</button>
+        <button type="button" onclick="deleteClient()" style="margin-top: 0.5rem; background-color: #c62828;">מחק</button>
+      </form>
+    </div>
+  </div>
 
   <footer class="main-footer">
     <div class="container">
@@ -171,114 +125,110 @@
     </div>
   </footer>
 
+  <script src="../js/config.js"></script>
+  <script>
+    const API_URL = `${window.API_BASE_URL}/clients`;
 
-
-<script src="../js/config.js"></script>
-<script>
-  const API_URL = `${window.API_BASE_URL}/clients`;
-;
-
-  async function loadClients() {
-    const res = await fetch(API_URL);
-    const clients = await res.json();
-
-    const tbody = document.querySelector("tbody");
-    tbody.innerHTML = "";
-
-    clients.forEach(client => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${client.id}</td>
-        <td>${client.full_name}</td>
-        <td>${client.phone}</td>
-        <td>${client.email || ''}</td>
-        <td><a href="#" class="table-link" onclick='loadToForm(${JSON.stringify(client)})'>לעריכה</a></td>
-      `;
-      tbody.appendChild(tr);
-    });
-  }
-
-  async function deleteClient() {
-    const id = document.getElementById("client-id").value;
-    if (!id) {
-      alert("יש להזין מזהה לקוחה למחיקה");
-      return;
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
     }
-
-    const response = await fetch(`${API_URL}?id=${id}`, {
-      method: "DELETE",
-    });
-
-    if (response.ok) {
-      alert("הלקוחה נמחקה");
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
       document.getElementById("client-form").reset();
-      loadClients();
-    } else {
-      alert("שגיאה במחיקה");
-    }
-  }
-
-  function loadToForm(client) {
-    document.getElementById("client-id").value = client.id;
-    document.getElementById("full_name").value = client.full_name;
-    document.getElementById("phone").value = client.phone;
-    document.getElementById("event_date").value = client.event_date;
-    document.getElementById("dress_select").value = client.dress_select;
-    document.getElementById("notes").value = client.notes;
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const unifiedInput = document.getElementById('client-unified');
-    const rows = document.querySelectorAll("tbody tr");
-
-    function applyUnifiedFilter() {
-      const value = unifiedInput.value.toLowerCase();
-      rows.forEach(row => {
-        const id = row.children[0].textContent.toLowerCase();
-        const name = row.children[1].textContent.toLowerCase();
-        const phone = row.children[2].textContent.toLowerCase();
-        const email = row.children[3].textContent.toLowerCase();
-        const match = !value || id.includes(value) || name.includes(value) || phone.includes(value) || email.includes(value);
-        row.style.display = match ? "" : "none";
-      });
     }
 
-    unifiedInput.addEventListener('input', applyUnifiedFilter);
+    async function loadClients() {
+      try {
+        const res = await fetch(API_URL);
+        const clients = await res.json();
 
-    document.getElementById("client-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
+        const tbody = document.getElementById("clients-tbody");
+        tbody.innerHTML = "";
+
+        clients.forEach(client => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${client.id}</td>
+            <td>${client.full_name}</td>
+            <td>${client.phone}</td>
+            <td>${client.event_date || ''}</td>
+            <td>${client.dress_select || ''}</td>
+            <td>${client.notes || ''}</td>
+            <td><a href="#" class="table-link" onclick='loadToForm(${JSON.stringify(client)})'>ערוך</a></td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        document.getElementById("error").style.display = "block";
+        document.getElementById("error").textContent = "שגיאה בטעינת נתונים";
+      }
+    }
+
+    function loadToForm(client) {
+      openModal('clientModal');
+      document.getElementById("client-id").value = client.id;
+      document.getElementById("full_name").value = client.full_name;
+      document.getElementById("phone").value = client.phone;
+      document.getElementById("event_date").value = client.event_date || '';
+      document.getElementById("dress_select").value = client.dress_select || '';
+      document.getElementById("notes").value = client.notes || '';
+    }
+
+    async function deleteClient() {
       const id = document.getElementById("client-id").value;
-      const method = id ? "PUT" : "POST";
+      if (!id) return alert("יש להזין מזהה לקוחה למחיקה");
 
-      const payload = {
-        id: id || undefined,
-        full_name: document.getElementById("full_name").value,
-        phone: document.getElementById("phone").value,
-        event_date: document.getElementById("event_date").value,
-        dress_select: document.getElementById("dress_select").value,
-        notes: document.getElementById("notes").value,
-      };
-
-      const response = await fetch(API_URL, {
-        method: method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (response.ok) {
-        alert("הלקוחה נשמרה בהצלחה");
-        document.getElementById("client-form").reset();
+      const res = await fetch(`${API_URL}?id=${id}`, { method: "DELETE" });
+      if (res.ok) {
+        alert("הלקוחה נמחקה");
+        closeModal('clientModal');
         loadClients();
       } else {
-        alert("שגיאה בשמירת הלקוחה");
+        alert("שגיאה במחיקה");
       }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("client-form").addEventListener("submit", async e => {
+        e.preventDefault();
+        const id = document.getElementById("client-id").value;
+        const method = id ? "PUT" : "POST";
+
+        const payload = {
+          id: id || undefined,
+          full_name: document.getElementById("full_name").value,
+          phone: document.getElementById("phone").value,
+          event_date: document.getElementById("event_date").value,
+          dress_select: document.getElementById("dress_select").value,
+          notes: document.getElementById("notes").value
+        };
+
+        const res = await fetch(API_URL, {
+          method,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          alert("הלקוחה נשמרה בהצלחה");
+          closeModal('clientModal');
+          loadClients();
+        } else {
+          alert("שגיאה בשמירת הלקוחה");
+        }
+      });
+
+      document.getElementById("client-unified").addEventListener("input", () => {
+        const value = document.getElementById("client-unified").value.toLowerCase();
+        const rows = document.querySelectorAll("#clients-tbody tr");
+        rows.forEach(row => {
+          const text = row.textContent.toLowerCase();
+          row.style.display = text.includes(value) ? "" : "none";
+        });
+      });
+
+      loadClients();
     });
-
-    loadClients(); // optional: load initial client list when page loads
-  });
-</script>
-
-
-
+  </script>
 </body>
 </html>
